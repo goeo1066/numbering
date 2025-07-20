@@ -73,7 +73,7 @@ public class FlowControlIndexFormatter {
     /**
      * Creates a FlowControlIndex instance using a custom character array.
      *
-     * @param radix         radix to use
+     * @param radix     radix to use
      * @param charArray custom overflow character set
      * @return FlowControlIndex instance
      */
@@ -120,7 +120,7 @@ public class FlowControlIndexFormatter {
 
         long numericLimit = (long) Math.pow(radix, length);
         if (numericLimit > value) {
-            return toRadixString(value, radix, length);
+            return toRadixString(value, length);
         }
 
         long extendedLimit = numericLimit - 1;
@@ -142,11 +142,11 @@ public class FlowControlIndexFormatter {
      * Builds the final encoded string using overflow logic.
      * Prefixes the code with repeated overflow characters if needed.
      *
-     * @param value            original numeric value
+     * @param value             original numeric value
      * @param length            target string length
-     * @param overflowTier         number of overflow prefix characters
+     * @param overflowTier      number of overflow prefix characters
      * @param previousTierStart lower bound of previous overflow segment
-     * @param numericLimit    segment width for current overflow range
+     * @param numericLimit      segment width for current overflow range
      * @return formatted code string
      */
     private String assembleCode(long value, int length, int overflowTier, long previousTierStart, long numericLimit) {
@@ -158,7 +158,7 @@ public class FlowControlIndexFormatter {
 
         if (numericLimit > 1) {
             int pad = (int) (Math.log(numericLimit) / Math.log(radix));
-            builder.append(toRadixString(value % numericLimit, radix, pad));
+            builder.append(toRadixString(value % numericLimit, pad));
         }
 
         return builder.toString();
@@ -167,12 +167,11 @@ public class FlowControlIndexFormatter {
     /**
      * Converts a number to a radix string, left-padded with zeros if necessary.
      *
-     * @param value value to convert
-     * @param radix numeric base
+     * @param value  value to convert
      * @param length minimum string width
      * @return zero-padded string in specified radix
      */
-    public static String toRadixString(long value, int radix, int length) {
+    public String toRadixString(long value, int length) {
         String s = Long.toString(value, radix);
         if (s.length() >= length) {
             return s;
