@@ -1,4 +1,4 @@
-# FlowControlIndex (FCI)
+# Flow Control Index Formatter
 
 > Code formatting, under control.  
 > Dynamic overflow indexing, fixed-length layout.  
@@ -34,6 +34,6 @@ Z99 → ZA0
 ## ✨ Example
 
 ```java
-FlowControlIndex fci = FlowControlIndex.ofBase(10, true);
-System.out.println(fci.formatIndex(999, 3));  // A00
-System.out.println(fci.formatIndex(2599, 3)); // ZA0
+FlowControlIndexFormatter fci = FlowControlIndexFormatter.ofBase(10, true);
+System.out.println(fci.formatIndex(999, 3));  
+System.out.println(fci.formatIndex(2599, 3)); 
