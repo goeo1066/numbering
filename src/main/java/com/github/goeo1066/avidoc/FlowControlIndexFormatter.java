@@ -89,7 +89,7 @@ public class FlowControlIndexFormatter {
      * @return maximum value representable
      */
     public long maxNumberByLength(int length) {
-        if (length <= 0) {
+        if (length < 1) {
             return 0;
         }
 
@@ -116,7 +116,7 @@ public class FlowControlIndexFormatter {
      * @throws IndexOutOfBoundsException if value exceeds representable range
      */
     public String formatIndex(long value, int length) {
-        if (length < 1) return String.valueOf(value);
+        if (length < 1) throw new IndexOutOfBoundsException("Length must be at least 1.");
 
         long numericLimit = (long) Math.pow(radix, length);
         if (numericLimit > value) {
@@ -196,5 +196,55 @@ public class FlowControlIndexFormatter {
         long elapsed = System.currentTimeMillis() - startedAt;
         System.out.println("Generated " + codes.size() + " codes.");
         System.out.println("Created " + max + ", Elapsed time: " + elapsed + " ms / " + (elapsed / 1000.0) + " seconds");
+    }
+
+    /* *******************************
+     * Test cases are in FlowControlIndexFormatterTest.java
+     */
+
+    /**
+     * Tests for private accessible.
+     * This method runs inline tests to validate the functionality of the formatter.
+     * It includes basic padding, overflow handling, single digit behavior,
+     */
+    public static void runTests() {
+        FlowControlIndexFormatter fci = FlowControlIndexFormatter.ofBase(10, true);
+
+        // Basic padding
+        assertEqual(fci.formatIndex(1, 3), "001", "Leading zero padding");
+        assertEqual(fci.formatIndex(999, 3), "999", "Max numeric boundary");
+        assertEqual(fci.formatIndex(1000, 3), "A00", "Overflow to alpha");
+
+        // Overflow segment handling
+        assertEqual(fci.formatIndex(2599, 3), "R99", "Last code in 1st alpha segment");
+        assertEqual(fci.formatIndex(2600, 3), "S00", "Start of 2nd overflow tier");
+
+        // Single digit behavior
+        assertEqual(fci.formatIndex(9, 1), "9", "Single digit");
+        assertEqual(fci.formatIndex(10, 1), "A", "1-digit overflow");
+
+        // Edge cases
+        try {
+            fci.formatIndex(1, 0);
+            throw new AssertionError("Expected exception not thrown for len=0");
+        } catch (Exception e) {
+            System.out.println("✅ Passed: Exception for len = 0");
+        }
+
+        // Test maximum value by length
+        long max = fci.maxNumberByLength(3);
+        String lastCode = fci.formatIndex(max, 3);
+        System.out.println("✅ Last code (max): " + lastCode);
+
+        System.out.println("✅ All inline tests passed.");
+    }
+
+    private static void assertEqual(String actual, String expected, String label) {
+        if (!actual.equals(expected)) {
+            throw new AssertionError(
+                    "❌ Test failed [" + label + "] — Expected: " + expected + ", Got: " + actual
+            );
+        }
+        System.out.println("✅ " + label + " → " + actual);
     }
 }
