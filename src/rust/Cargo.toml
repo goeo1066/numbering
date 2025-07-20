@@ -1,0 +1,8 @@
+[package]
+name = "rust"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+radix_fmt = "1.0.0"
+log = "0.4.27"
