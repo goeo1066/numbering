@@ -36,4 +36,17 @@ Z99 → ZA0
 ```java
 FlowControlIndexFormatter fci = FlowControlIndexFormatter.ofBase(10, true);
 System.out.println(fci.formatIndex(999, 3));  
-System.out.println(fci.formatIndex(2599, 3)); 
+System.out.println(fci.formatIndex(2599, 3));
+```
+
+```rust
+let fci = FlowControlIndexFormatter::of_base(10, true).unwrap();
+println!(fci.format_index(999, 3));
+println!(fci.format_index(2599, 3));
+```
+
+📁 Project Structure
+- java
+  - src/main/java..
+- rust
+  - src/rust..
