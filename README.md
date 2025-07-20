@@ -1,11 +1,13 @@
-# Flow Control Index Formatter
+# Numbering
+
+## Flow Control Index Formatter
 
 > Code formatting, under control.  
 > Dynamic overflow indexing, fixed-length layout.  
 
 ---
 
-## 🧭 What is this?
+### 🧭 What is this?
 
 You want fixed-length codes.  
 You want them to overflow gracefully.  
@@ -21,7 +23,7 @@ Z99 → ZA0
 ```
 ---
 
-## ⚙️ Features
+### ⚙️ Features
 
 - Radix-based indexing (e.g., base 10, 16, 32, etc.)
 - Human-readable mode (skips 'O', 'I')
@@ -31,7 +33,7 @@ Z99 → ZA0
 
 ---
 
-## ✨ Example
+### ✨ Example
 
 ```java
 FlowControlIndexFormatter fci = FlowControlIndexFormatter.ofBase(10, true);
@@ -45,7 +47,7 @@ println!(fci.format_index(999, 3));
 println!(fci.format_index(2599, 3));
 ```
 
-📁 Project Structure
+### 📁 Project Structure
 - java
   - src/main/java..
 - rust
