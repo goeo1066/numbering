@@ -29,7 +29,6 @@ Z99 → ZA0
 - Human-readable mode (skips 'O', 'I')
 - Fully dynamic code overflow handling
 - Consistent fixed-width format
-- Microsecond-level performance
 
 ---
 
